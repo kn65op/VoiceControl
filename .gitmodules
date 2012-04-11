@@ -1,0 +1,3 @@
+[submodule "alsa-cpp"]
+	path = alsa-cpp
+	url = git@github.com:kn65op/alsa-cpp.git
