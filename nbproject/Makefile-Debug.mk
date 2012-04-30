@@ -34,7 +34,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/_ext/33688800/VoiceControlWindow.o
 
 
 # C Compiler Flags
@@ -51,13 +52,15 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=/home/tomko/moje_dziela/VoiceControl/alsa-cpp/dist/Debug/GNU-Linux-x86/libalsa-cpp.so
+LDLIBSOPTIONS=-Laquila2.5/lib `pkg-config --libs gtkmm-3.0` alsa-cpp/dist/Debug/GNU-Linux-x86/libalsa-cpp.so aquila2.5/lib/libaquila.so  
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/voicecontrol
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/voicecontrol: /home/tomko/moje_dziela/VoiceControl/alsa-cpp/dist/Debug/GNU-Linux-x86/libalsa-cpp.so
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/voicecontrol: alsa-cpp/dist/Debug/GNU-Linux-x86/libalsa-cpp.so
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/voicecontrol: aquila2.5/lib/libaquila.so
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/voicecontrol: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -66,7 +69,12 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/voicecontrol: ${OBJECTFILES}
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/home/tomko/moje_dziela/VoiceControl/alsa-cpp/include -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I/home/tomko/moje_dziela/VoiceControl/alsa-cpp/include -Iaquila2.5/include `pkg-config --cflags gtkmm-3.0`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/_ext/33688800/VoiceControlWindow.o: /home/tomko/moje_dziela/VoiceControl/src/VoiceControlWindow.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/33688800
+	${RM} $@.d
+	$(COMPILE.cc) -g -I/home/tomko/moje_dziela/VoiceControl/alsa-cpp/include -Iaquila2.5/include `pkg-config --cflags gtkmm-3.0`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/33688800/VoiceControlWindow.o /home/tomko/moje_dziela/VoiceControl/src/VoiceControlWindow.cpp
 
 # Subprojects
 .build-subprojects:
