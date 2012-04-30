@@ -69,15 +69,16 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/voicecontrol: ${OBJECTFILES}
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/home/tomko/moje_dziela/VoiceControl/alsa-cpp/include -Iaquila2.5/include `pkg-config --cflags gtkmm-3.0`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -Ialsa-cpp/include -Iaquila2.5/include `pkg-config --cflags gtkmm-3.0`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 ${OBJECTDIR}/_ext/33688800/VoiceControlWindow.o: /home/tomko/moje_dziela/VoiceControl/src/VoiceControlWindow.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/33688800
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/home/tomko/moje_dziela/VoiceControl/alsa-cpp/include -Iaquila2.5/include `pkg-config --cflags gtkmm-3.0`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/33688800/VoiceControlWindow.o /home/tomko/moje_dziela/VoiceControl/src/VoiceControlWindow.cpp
+	$(COMPILE.cc) -g -Ialsa-cpp/include -Iaquila2.5/include `pkg-config --cflags gtkmm-3.0`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/33688800/VoiceControlWindow.o /home/tomko/moje_dziela/VoiceControl/src/VoiceControlWindow.cpp
 
 # Subprojects
 .build-subprojects:
+	cd /home/tomko/moje_dziela/VoiceControl/alsa-cpp && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -86,6 +87,7 @@ ${OBJECTDIR}/_ext/33688800/VoiceControlWindow.o: /home/tomko/moje_dziela/VoiceCo
 
 # Subprojects
 .clean-subprojects:
+	cd /home/tomko/moje_dziela/VoiceControl/alsa-cpp && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

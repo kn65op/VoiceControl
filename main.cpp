@@ -26,6 +26,8 @@ int main(int argc, char** argv)
   TALSA::DataFormat f = TALSA::DataFormat::U8;
   TALSA::Device d;
   TALSA::Device d1;
+  try
+  {
   d.setDevice("default");
   d1.setDevice("file:'tmp.wav',wav");
   d.setDataFormat(f);
@@ -39,6 +41,15 @@ int main(int argc, char** argv)
   d1.write(data);
   d.close();
   d1.close();
+  }
+  catch(TALSA::InvalidOperation inv)
+  {
+    std::cout << "Invalid operation: " << inv.getMessage() << "\n";
+  }
+  catch(TALSA::WrongArgument wa)
+  {
+    std::cout << "Wrong argument: " << wa.getMessage() << "\n";
+  }
 
 
   {

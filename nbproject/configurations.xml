@@ -38,7 +38,7 @@
       <compileType>
         <ccTool>
           <incDir>
-            <pElem>/home/tomko/moje_dziela/VoiceControl/alsa-cpp/include</pElem>
+            <pElem>alsa-cpp/include</pElem>
             <pElem>aquila2.5/include</pElem>
           </incDir>
           <commandLine>-std=c++0x</commandLine>
@@ -58,7 +58,7 @@
                         CT="2"
                         CN="Debug"
                         AC="true"
-                        BL="false"
+                        BL="true"
                         WD="/home/tomko/moje_dziela/VoiceControl/alsa-cpp"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
