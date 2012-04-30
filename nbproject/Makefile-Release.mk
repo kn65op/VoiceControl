@@ -34,8 +34,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/_ext/33688800/VoiceControlWindow.o
+	${OBJECTDIR}/src/VoiceControlWindow.o \
+	${OBJECTDIR}/main.o
 
 
 # C Compiler Flags
@@ -62,15 +62,15 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/voicecontrol: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/voicecontrol ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
+${OBJECTDIR}/src/VoiceControlWindow.o: src/VoiceControlWindow.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VoiceControlWindow.o src/VoiceControlWindow.cpp
+
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
-
-${OBJECTDIR}/_ext/33688800/VoiceControlWindow.o: /home/tomko/moje_dziela/VoiceControl/src/VoiceControlWindow.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/33688800
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/33688800/VoiceControlWindow.o /home/tomko/moje_dziela/VoiceControl/src/VoiceControlWindow.cpp
 
 # Subprojects
 .build-subprojects:
