@@ -1,3 +1,6 @@
 [submodule "alsa-cpp"]
 	path = alsa-cpp
 	url = git@github.com:kn65op/alsa-cpp.git
+[submodule "SSN"]
+	path = SSN
+	url = git@github.com:kn65op/SSN.git

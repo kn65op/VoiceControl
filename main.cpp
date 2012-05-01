@@ -26,27 +26,34 @@ int main(int argc, char** argv)
   TALSA::DataFormat f = TALSA::DataFormat::U8;
   TALSA::Device d;
   TALSA::Device d1;
+  TALSA::Device d2;
   try
   {
-  d.setDevice("default");
-  d1.setDevice("file:'tmp.wav',wav");
-  d.setDataFormat(f);
-  d1.setDataFormat(f);
-  TALSA::Data data;
-  data.setSize(1 * 48000);
-  data.setDataFormat(f);
-  d.open(TALSA::AccessMode::READ);
-  d1.open(TALSA::AccessMode::WRITE);
-  d.read(data);
-  d1.write(data);
-  d.close();
-  d1.close();
+    d.setDevice("default");
+    d1.setDevice("file:'tmp.wav',wav");
+    d2.setDevice("file:'tmp_after.wav',wav");
+    d.setDataFormat(f);
+    d1.setDataFormat(f);
+    d2.setDataFormat(f);
+    TALSA::Data data;
+    data.setSize(2 * 48000); //testote 2 sekundy
+    data.setDataFormat(f);
+    d.open(TALSA::AccessMode::READ);
+    d1.open(TALSA::AccessMode::WRITE);
+    d2.open(TALSA::AccessMode::WRITE);
+    d.read(data);
+    d1.write(data);
+    d.close();
+    d1.close();
+    data.removeConstantComponent();
+    d2.write(data);
+    d2.close();
   }
-  catch(TALSA::InvalidOperation inv)
+  catch (TALSA::InvalidOperation inv)
   {
     std::cout << "Invalid operation: " << inv.getMessage() << "\n";
   }
-  catch(TALSA::WrongArgument wa)
+  catch (TALSA::WrongArgument wa)
   {
     std::cout << "Wrong argument: " << wa.getMessage() << "\n";
   }

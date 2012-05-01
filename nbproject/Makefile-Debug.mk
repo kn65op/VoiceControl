@@ -78,7 +78,7 @@ ${OBJECTDIR}/main.o: main.cpp
 
 # Subprojects
 .build-subprojects:
-	cd /home/tomko/moje_dziela/VoiceControl/alsa-cpp && ${MAKE}  -f Makefile CONF=Debug
+	cd alsa-cpp && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -87,7 +87,7 @@ ${OBJECTDIR}/main.o: main.cpp
 
 # Subprojects
 .clean-subprojects:
-	cd /home/tomko/moje_dziela/VoiceControl/alsa-cpp && ${MAKE}  -f Makefile CONF=Debug clean
+	cd alsa-cpp && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
