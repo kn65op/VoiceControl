@@ -15,12 +15,10 @@
 
 #include <iostream>
 #include <fstream>
-#include <WaveFile.h>
-#include <feature/MfccExtractor.h>
-#include <feature/TextFeatureWriter.h>
 
 //#define network_LOAD
 #define AKW
+
 /*
  * 
  */
@@ -31,7 +29,7 @@ int main(int argc, char** argv)
   network.setEntries(12);
   network.setExits(4);
   network.setLayersCount(2);
-  network.setNeurons(1, 8);
+  network.setNeurons(1, 30);
   network.init();
 
   std::vector<double> ins(12);
@@ -89,6 +87,7 @@ int main(int argc, char** argv)
     network.insertPattern(ins.begin(), ins.end(), outs.begin(), outs.end());
   }
   file.close();
+  std::cout << "LICZENIE\n";
 
   std::cout << network.learnFromPattern() << "\n";
   std::cout << network.learnFromPattern() << "\n";
@@ -110,7 +109,7 @@ int main(int argc, char** argv)
     out = network.calcOutput();
     for (auto o : out)
     {
-std::cout << o << " ";
+      std::cout << o << " ";
     }
     std::cout << "\n";
   }
@@ -130,7 +129,7 @@ std::cout << o << " ";
     out = network.calcOutput();
     for (auto o : out)
     {
-std::cout << o << " ";
+      std::cout << o << " ";
     }
     std::cout << "\n";
   }
@@ -150,7 +149,7 @@ std::cout << o << " ";
     out = network.calcOutput();
     for (auto o : out)
     {
-std::cout << o << " ";
+      std::cout << o << " ";
     }
     std::cout << "\n";
   }
@@ -170,8 +169,56 @@ std::cout << o << " ";
     out = network.calcOutput();
     for (auto o : out)
     {
-std::cout << o << " ";
+      std::cout << o << " ";
     }
+    std::cout << "\n";
+  }
+  file.close();
+
+  file.open("litera1.txt", std::ios::in);
+  std::cout << "TEST\n";
+  while (!file.eof())
+  {
+    for (auto & d : ins)
+    {
+      file >> d;
+    }
+    network.setInput(ins.begin(), ins.end());
+    out = network.calcOutput(); 
+    int A,E,I,O;
+    A = out[0] > 0.8 ? 1 : 0;
+    E = out[1] > 0.8 ? 1 : 0;
+    I = out[2] > 0.8 ? 1 : 0;
+    O = out[3] > 0.8 ? 1 : 0;
+    if (A + E + I + O == 1)
+    {
+      if (A)
+      {
+	std::cout << "A";
+      }
+      else if (E)
+      {
+	std::cout << "E";
+      }
+      else if (I)
+      {
+	std::cout << "I";
+      }
+      else
+      {
+	std::cout << "O";
+      }
+    }
+    else
+    {
+      std::cout << "?";
+    }
+    
+    /*
+    for (auto o : out)
+    {
+      std::cout << o << " ";
+    }*/
     std::cout << "\n";
   }
   file.close();
@@ -191,7 +238,7 @@ std::cout << o << " ";
     d.setDataFormat(f);
     d1.setDataFormat(f);
     d2.setDataFormat(f);
-    data.setSize(5 * 8000); //testote 2 sekundy
+    data.setSize(3 * 8000); //testote 2 sekundy
     data.setSampleFrequency(8000);
     data.setDataFormat(f);
     d.open(TALSA::AccessMode::READ);
@@ -204,10 +251,8 @@ std::cout << o << " ";
     //data.removeConstantComponent();
     d2.write(data);
     d2.close();
-    data.test();
+    // data.test();
     data.saveRawDataToFile("raw_data.dat");
-    data.setFrameLength(1, 0.5);
-    std::cout << data.getWindowsNumber() << "\n";
   }
   catch (TALSA::InvalidOperation inv)
   {
@@ -218,40 +263,17 @@ std::cout << o << " ";
     std::cout << "Wrong argument: " << wa.getMessage() << "\n";
   }
 
-/*/ ekstracja cech z użyciem Aquily
-  {
-    Aquila::WaveFile wav;
-    wav.load("tmp.wav");
-    std::cout << "Filename: " << wav.getFilename();
-    std::cout << "\nLength: " << wav.getAudioLength() << " ms";
-    std::cout << "\nSample frequency: " << wav.getSampleFrequency() << " Hz";
-    std::cout << "\nChanetworkels: " << wav.getChannelsNum();
-    std::cout << "\nByte rate: " << wav.getBytesPerSec() / 1024 << " kB/s";
-    std::cout << "\nBits per sample: " << wav.getBitsPerSamp() << "b\n";
-  }
-
-  Aquila::WaveFile wav(20, 0.50);
-  wav.load("tmp.wav");
-  Aquila::MfccExtractor extractor(20, 12);
-  Aquila::TransformOptions options;
-  options.preemphasisFactor = 0.9375;
-  options.windowType = Aquila::WIN_HAMMING;
-  options.zeroPaddedLength = wav.getSamplesPerFrameZP();
-  extractor.process(&wav, options);
-  Aquila::TextFeatureWriter writer("feature.txt");
-  extractor.save(writer);
-
-  data.setFrameLength(0.02, 0.5);
+  //własna ekstrakcja cech
+  data.setFrameLength(128, 80);
   int max = data.getWindowsNumber();
-  int max1 = wav.getFramesCount();
   std::vector<double> a;
   std::ofstream file("litera1.txt");
   for (int i = 0; i < max; ++i)
   {
-    if (data.isFrameWithSpeech(i)) // jest coś
+   // if (data.isFrameWithSpeech(i)) // jest coś
     {
       file << i << ":\n";
-      a = extractor.getVector(i);
+      a = data.getMFCCFromFrame(i);
       for (auto i : a)
       {
         file << i << "\t";
@@ -260,7 +282,50 @@ std::cout << o << " ";
     }
   }
   file.close();
- * **/
+
+  /*/ ekstracja cech z użyciem Aquily
+    {
+      Aquila::WaveFile wav;
+      wav.load("tmp.wav");
+      std::cout << "Filename: " << wav.getFilename();
+      std::cout << "\nLength: " << wav.getAudioLength() << " ms";
+      std::cout << "\nSample frequency: " << wav.getSampleFrequency() << " Hz";
+      std::cout << "\nChanetworkels: " << wav.getChannelsNum();
+      std::cout << "\nByte rate: " << wav.getBytesPerSec() / 1024 << " kB/s";
+      std::cout << "\nBits per sample: " << wav.getBitsPerSamp() << "b\n";
+    }
+
+    Aquila::WaveFile wav(20, 0.50);
+    wav.load("tmp.wav");
+    Aquila::MfccExtractor extractor(20, 12);
+    Aquila::TransformOptions options;
+    options.preemphasisFactor = 0.9375;
+    options.windowType = Aquila::WIN_HAMMING;
+    options.zeroPaddedLength = wav.getSamplesPerFrameZP();
+    extractor.process(&wav, options);
+    Aquila::TextFeatureWriter writer("feature.txt");
+    extractor.save(writer);
+
+    data.setFrameLength(0.02, 0.5);
+    int max = data.getWindowsNumber();
+    int max1 = wav.getFramesCount();
+    std::vector<double> a;
+    std::ofstream file("litera1.txt");
+    for (int i = 0; i < max; ++i)
+    {
+      if (data.isFrameWithSpeech(i)) // jest coś
+      {
+        file << i << ":\n";
+        a = extractor.getVector(i);
+        for (auto i : a)
+        {
+          file << i << "\t";
+        }
+        file << "\n";
+      }
+    }
+    file.close();
+   * **/
 #endif
 
   return 0;

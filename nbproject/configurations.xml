@@ -48,14 +48,13 @@
         </ccTool>
         <linkerTool>
           <linkerAddLib>
-            <pElem>aquila2.5/lib</pElem>
             <pElem>SSN/LibHelper/dist/Debug/GNU-Linux-x86</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerOptionItem>`pkg-config --libs gtkmm-3.0`</linkerOptionItem>
             <linkerLibFileItem>alsa-cpp/dist/Debug/GNU-Linux-x86/libalsa-cpp.so</linkerLibFileItem>
-            <linkerLibFileItem>aquila2.5/lib/libaquila.so</linkerLibFileItem>
             <linkerLibFileItem>SSN/LibHelper/dist/Debug/GNU-Linux-x86/libHelper.so</linkerLibFileItem>
+            <linkerOptionItem>`pkg-config --libs fftw3`</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
         <requiredProjects>
