@@ -10,6 +10,7 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
                 <make-dep-project>alsa-cpp</make-dep-project>
+                <make-dep-project>SSN/NeuralNetwork</make-dep-project>
             </make-dep-projects>
             <sourceRootList/>
             <confList>

@@ -40,17 +40,22 @@
           <incDir>
             <pElem>alsa-cpp/include</pElem>
             <pElem>aquila2.5/include</pElem>
+            <pElem>SSN/NeuralNetwork</pElem>
+            <pElem>SSN/Neuron</pElem>
+            <pElem>SSN/LibHelper</pElem>
           </incDir>
           <commandLine>-std=c++0x</commandLine>
         </ccTool>
         <linkerTool>
           <linkerAddLib>
             <pElem>aquila2.5/lib</pElem>
+            <pElem>SSN/LibHelper/dist/Debug/GNU-Linux-x86</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerOptionItem>`pkg-config --libs gtkmm-3.0`</linkerOptionItem>
             <linkerLibFileItem>alsa-cpp/dist/Debug/GNU-Linux-x86/libalsa-cpp.so</linkerLibFileItem>
             <linkerLibFileItem>aquila2.5/lib/libaquila.so</linkerLibFileItem>
+            <linkerLibFileItem>SSN/LibHelper/dist/Debug/GNU-Linux-x86/libHelper.so</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
         <requiredProjects>
@@ -63,6 +68,16 @@
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libalsa-cpp.so">
+          </makeArtifact>
+          <makeArtifact PL="SSN/NeuralNetwork"
+                        CT="2"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="SSN/NeuralNetwork"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libNeuralNetwork.so">
           </makeArtifact>
         </requiredProjects>
       </compileType>

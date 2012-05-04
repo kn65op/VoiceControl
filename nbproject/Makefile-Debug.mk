@@ -52,7 +52,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-Laquila2.5/lib `pkg-config --libs gtkmm-3.0` alsa-cpp/dist/Debug/GNU-Linux-x86/libalsa-cpp.so aquila2.5/lib/libaquila.so  
+LDLIBSOPTIONS=-Laquila2.5/lib -LSSN/LibHelper/dist/Debug/GNU-Linux-x86 `pkg-config --libs gtkmm-3.0` alsa-cpp/dist/Debug/GNU-Linux-x86/libalsa-cpp.so aquila2.5/lib/libaquila.so SSN/LibHelper/dist/Debug/GNU-Linux-x86/libHelper.so  
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -62,6 +62,8 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/voicecontrol: alsa-cpp/dist/Debug/GNU
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/voicecontrol: aquila2.5/lib/libaquila.so
 
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/voicecontrol: SSN/LibHelper/dist/Debug/GNU-Linux-x86/libHelper.so
+
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/voicecontrol: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/voicecontrol ${OBJECTFILES} ${LDLIBSOPTIONS} 
@@ -69,16 +71,17 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/voicecontrol: ${OBJECTFILES}
 ${OBJECTDIR}/src/VoiceControlWindow.o: src/VoiceControlWindow.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -Ialsa-cpp/include -Iaquila2.5/include `pkg-config --cflags gtkmm-3.0`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VoiceControlWindow.o src/VoiceControlWindow.cpp
+	$(COMPILE.cc) -g -Ialsa-cpp/include -Iaquila2.5/include -ISSN/NeuralNetwork -ISSN/Neuron -ISSN/LibHelper `pkg-config --cflags gtkmm-3.0`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VoiceControlWindow.o src/VoiceControlWindow.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -Ialsa-cpp/include -Iaquila2.5/include `pkg-config --cflags gtkmm-3.0`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -Ialsa-cpp/include -Iaquila2.5/include -ISSN/NeuralNetwork -ISSN/Neuron -ISSN/LibHelper `pkg-config --cflags gtkmm-3.0`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
 	cd alsa-cpp && ${MAKE}  -f Makefile CONF=Debug
+	cd SSN/NeuralNetwork && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -88,6 +91,7 @@ ${OBJECTDIR}/main.o: main.cpp
 # Subprojects
 .clean-subprojects:
 	cd alsa-cpp && ${MAKE}  -f Makefile CONF=Debug clean
+	cd SSN/NeuralNetwork && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
