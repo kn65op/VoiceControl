@@ -19,3 +19,21 @@ Recorder::~Recorder()
 {
 }
 
+void Recorder::setOperator(Operator* op)
+{
+  oper = op;
+}
+
+void Recorder::start()
+{
+  rec_thread = new std::thread(&Recorder::record, this);
+  recording = true;
+}
+
+void Recorder::stop()
+{
+  recording = false;
+  rec_thread->join();
+  delete rec_thread;
+  rec_thread = 0;
+}

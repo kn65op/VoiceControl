@@ -8,6 +8,9 @@
 #ifndef RECORDER_H
 #define	RECORDER_H
 
+#include <thread>
+#include <atomic>
+
 #include "Operator.h"
 
 class Recorder
@@ -23,6 +26,10 @@ public:
   void setOperator(Operator* op);
 private:
   Operator* oper;
+
+  std::atomic<bool> recording;
+  void record();
+  std::thread *rec_thread;
 };
 
 #endif	/* RECORDER_H */
