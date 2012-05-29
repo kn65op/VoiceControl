@@ -12,6 +12,7 @@
 #include <atomic>
 
 #include "Operator.h"
+#include "Recognizer.h"
 
 class Recorder
 {
@@ -26,6 +27,7 @@ public:
   void setOperator(Operator* op);
 private:
   Operator* oper;
+  Recognizer recognizer;
 
   std::atomic<bool> recording;
   void record();

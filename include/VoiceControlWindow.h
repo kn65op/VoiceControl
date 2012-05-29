@@ -20,7 +20,10 @@ public:
   VoiceControlWindow(const VoiceControlWindow& orig) = delete;
   virtual ~VoiceControlWindow();
 private:
-  Gtk::Button a;
+  Gtk::Button start_stop;
+  bool recording;
+
+  void on_start_stop_clicked();
 
   Recorder rec;
   Operator *op;
