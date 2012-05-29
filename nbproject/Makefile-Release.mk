@@ -41,7 +41,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/Pattern.o \
 	${OBJECTDIR}/src/Recognizer.o \
 	${OBJECTDIR}/src/Phoneme.o \
-	${OBJECTDIR}/src/Phonemes.o
+	${OBJECTDIR}/src/Phonemes.o \
+	${OBJECTDIR}/src/Operator.o
 
 
 # C Compiler Flags
@@ -107,6 +108,11 @@ ${OBJECTDIR}/src/Phonemes.o: src/Phonemes.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Phonemes.o src/Phonemes.cpp
+
+${OBJECTDIR}/src/Operator.o: src/Operator.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Operator.o src/Operator.cpp
 
 # Subprojects
 .build-subprojects:

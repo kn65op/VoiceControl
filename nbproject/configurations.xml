@@ -5,6 +5,8 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>include/Letter.h</itemPath>
+      <itemPath>src/Operator.cpp</itemPath>
+      <itemPath>include/Operator.h</itemPath>
       <itemPath>include/Pattern.h</itemPath>
       <itemPath>include/Phoneme.h</itemPath>
       <itemPath>include/Phonemes.h</itemPath>
