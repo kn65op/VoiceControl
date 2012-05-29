@@ -9,6 +9,7 @@
       <itemPath>include/Phoneme.h</itemPath>
       <itemPath>include/Phonemes.h</itemPath>
       <itemPath>include/Recognizer.h</itemPath>
+      <itemPath>include/Recorder.h</itemPath>
       <itemPath>include/VoiceControlWindow.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -23,6 +24,7 @@
       <itemPath>src/Phoneme.cpp</itemPath>
       <itemPath>src/Phonemes.cpp</itemPath>
       <itemPath>src/Recognizer.cpp</itemPath>
+      <itemPath>src/Recorder.cpp</itemPath>
       <itemPath>src/VoiceControlWindow.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>

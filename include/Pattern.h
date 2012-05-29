@@ -60,6 +60,23 @@ public:
    * @param file Nazwa pliku.
    */
   static void savePatterns(std::string file);
+  /**
+   * Funkcja ograniczająca możliwe wzorce.
+   * @param limiter Fragment, który musi być dopasowany.
+   * @param pos Pozycja fragmentu.
+   */
+  void limitPatters(std::string limiter, int pos);
+  /**
+   * Funkcja zwracająca informację, czy są jeszcze jakieś wzorce po ograniczeniach.
+   * @return true jeśli są, false w przeciwnym wypadku.
+   */
+  bool isPattern() const;
+  /**
+   * Funkcja zwracająca wzorzec jeśli jest tylko jeden.
+   * @return Jedyny wzorzec jaki pozostał lub pusty string jeśli nie ma żadnego wzorca lub jest ich wiele.
+   */
+  std::string getPattern() const;
+
 private:
   static std::list<std::vector<Phoneme*>*> patterns;
   std::list<std::vector<Phoneme*>*> patterns_possible;

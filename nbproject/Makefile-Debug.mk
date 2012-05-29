@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/VoiceControlWindow.o \
 	${OBJECTDIR}/src/Letter.o \
+	${OBJECTDIR}/src/Recorder.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/src/Pattern.o \
 	${OBJECTDIR}/src/Recognizer.o \
@@ -80,6 +81,11 @@ ${OBJECTDIR}/src/Letter.o: src/Letter.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Ialsa-cpp/include -Iaquila2.5/include -ISSN/NeuralNetwork -ISSN/Neuron -ISSN/LibHelper `pkg-config --cflags gtkmm-3.0` `pkg-config --cflags fftw3`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Letter.o src/Letter.cpp
+
+${OBJECTDIR}/src/Recorder.o: src/Recorder.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -Ialsa-cpp/include -Iaquila2.5/include -ISSN/NeuralNetwork -ISSN/Neuron -ISSN/LibHelper `pkg-config --cflags gtkmm-3.0` `pkg-config --cflags fftw3`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Recorder.o src/Recorder.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
