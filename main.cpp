@@ -18,6 +18,7 @@
 
 #include "include/Letter.h"
 #include "include/Recognizer.h"
+#include "include/VoiceControlWindow.h"
 
 //#define NET_FOURIER
 //#define NET_ALL
@@ -31,13 +32,16 @@
 //#define TEST_SPEECH
 //#define TEST_ALGO
 //#define CALC_AVG
-#define LAST_CHANCE
+//#define LAST_CHANCE
 
 /*
  * 
  */
 int main(int argc, char** argv)
 {
+  Glib::RefPtr<Gtk::Application> app = Gtk::Application::create(argc, argv, "org.gtkmm.example");
+  VoiceControlWindow vcw;
+  return app->run(vcw);
 #ifdef LAST_CHANCE
   Recognizer recognizer;
   recognizer.loadParameters();
