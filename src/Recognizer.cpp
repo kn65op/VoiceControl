@@ -39,7 +39,7 @@ void Recognizer::loadParameters()
     bstmp.clear();
     avgstmp.clear();
     inf >> stmp; //odczytanie litery
-    letters.push_back(stmp);
+    letters.push_back(Phoneme::getPhonemeFromString(stmp));
     for (int i = 0; i < params_count; ++i)
     {
       inf >> dtmp; //odczytanie początku zakresu

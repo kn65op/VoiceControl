@@ -71,4 +71,50 @@ double Pattern::getProbablityLetterPosition(Phoneme* l, int n)
   return double(count / all);
 }
 
+double Pattern::getProbablityLetterPositionAndPrecedence(Phoneme* l, int n, Phoneme* s)
+{
+  int count = 0;
+  int all = 0;
+  for (auto p : patterns_possible)
+  {
+    try
+    {
+      if (p->at(n) == l && p->at(n - 1) == s)
+      {
+        ++count;
+      }
+      ++all;
+    }
+    catch (std::out_of_range e)
+    {
+      //TODO: chyba nic
+    }
+  }
+  return double(count / all);
+}
 
+double Pattern::getProbablityLetterPrecedence(Phoneme* l, Phoneme* s)
+{
+  int count = 0;
+  int all = 0;
+  std::vector<Phoneme*>::iterator it, end;
+  for (auto p : patterns_possible)
+  {
+    for(it = p->begin(), end = p->end() - 1; it != end; ++it)
+    {
+      try
+      {
+        if (*it == s && *(it + 1) == l)
+        {
+          ++count;
+        }
+        ++all;
+      }
+      catch (std::out_of_range e)
+      {
+        //TODO: chyba nic
+      }
+    }
+  }
+  return double(count / all);
+}

@@ -12,6 +12,8 @@
 #include <list>
 #include <vector>
 
+#include "Phoneme.h"
+
 /**
  * Klasa rozpoznawacza, która określa prawdopodobieństwo wystąpienia danego fonemu.
  */
@@ -86,13 +88,13 @@ public:
       if (tmp[i] > max)
       {
 	max = tmp[i];
-	last_letter = letters[i];
+	last_letter = letters[i]->getSymbol();
       }
     }
     return tmp;
   }
 private:
-  std::vector<std::string> letters;
+  std::vector<Phoneme*> letters;
   std::vector<std::vector<double >> as;
   std::vector<std::vector<double >> bs;
   std::vector<std::vector<double >> avgs;
