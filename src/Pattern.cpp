@@ -7,7 +7,9 @@
 
 #include "../include/Pattern.h"
 
-Pattern::Pattern()
+std::vector<std::string*> Pattern::patterns = std::vector<std::string*>();
+
+Pattern::Pattern() : patterns_possible(patterns)
 {
 }
 
