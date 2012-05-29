@@ -35,7 +35,11 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/VoiceControlWindow.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/src/Letter.o \
+	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/src/Pattern.o \
+	${OBJECTDIR}/src/Recognizer.o \
+	${OBJECTDIR}/src/Phonemes.o
 
 
 # C Compiler Flags
@@ -67,10 +71,30 @@ ${OBJECTDIR}/src/VoiceControlWindow.o: src/VoiceControlWindow.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VoiceControlWindow.o src/VoiceControlWindow.cpp
 
+${OBJECTDIR}/src/Letter.o: src/Letter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Letter.o src/Letter.cpp
+
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/src/Pattern.o: src/Pattern.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Pattern.o src/Pattern.cpp
+
+${OBJECTDIR}/src/Recognizer.o: src/Recognizer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Recognizer.o src/Recognizer.cpp
+
+${OBJECTDIR}/src/Phonemes.o: src/Phonemes.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Phonemes.o src/Phonemes.cpp
 
 # Subprojects
 .build-subprojects:

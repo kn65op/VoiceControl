@@ -35,15 +35,19 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/VoiceControlWindow.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/src/Letter.o \
+	${OBJECTDIR}/main.o \
+	${OBJECTDIR}/src/Pattern.o \
+	${OBJECTDIR}/src/Recognizer.o \
+	${OBJECTDIR}/src/Phonemes.o
 
 
 # C Compiler Flags
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-std=c++0x
-CXXFLAGS=-std=c++0x
+CCFLAGS=-std=gnu++0x -fopenmp -mtune=native -D_GLIBCXX_PARALLEL
+CXXFLAGS=-std=gnu++0x -fopenmp -mtune=native -D_GLIBCXX_PARALLEL
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -71,10 +75,30 @@ ${OBJECTDIR}/src/VoiceControlWindow.o: src/VoiceControlWindow.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -Ialsa-cpp/include -Iaquila2.5/include -ISSN/NeuralNetwork -ISSN/Neuron -ISSN/LibHelper `pkg-config --cflags gtkmm-3.0` `pkg-config --cflags fftw3`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/VoiceControlWindow.o src/VoiceControlWindow.cpp
 
+${OBJECTDIR}/src/Letter.o: src/Letter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -Ialsa-cpp/include -Iaquila2.5/include -ISSN/NeuralNetwork -ISSN/Neuron -ISSN/LibHelper `pkg-config --cflags gtkmm-3.0` `pkg-config --cflags fftw3`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Letter.o src/Letter.cpp
+
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -Ialsa-cpp/include -Iaquila2.5/include -ISSN/NeuralNetwork -ISSN/Neuron -ISSN/LibHelper `pkg-config --cflags gtkmm-3.0` `pkg-config --cflags fftw3`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+
+${OBJECTDIR}/src/Pattern.o: src/Pattern.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -Ialsa-cpp/include -Iaquila2.5/include -ISSN/NeuralNetwork -ISSN/Neuron -ISSN/LibHelper `pkg-config --cflags gtkmm-3.0` `pkg-config --cflags fftw3`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Pattern.o src/Pattern.cpp
+
+${OBJECTDIR}/src/Recognizer.o: src/Recognizer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -Ialsa-cpp/include -Iaquila2.5/include -ISSN/NeuralNetwork -ISSN/Neuron -ISSN/LibHelper `pkg-config --cflags gtkmm-3.0` `pkg-config --cflags fftw3`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Recognizer.o src/Recognizer.cpp
+
+${OBJECTDIR}/src/Phonemes.o: src/Phonemes.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -Ialsa-cpp/include -Iaquila2.5/include -ISSN/NeuralNetwork -ISSN/Neuron -ISSN/LibHelper `pkg-config --cflags gtkmm-3.0` `pkg-config --cflags fftw3`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Phonemes.o src/Phonemes.cpp
 
 # Subprojects
 .build-subprojects:

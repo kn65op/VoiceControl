@@ -4,6 +4,10 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>include/Letter.h</itemPath>
+      <itemPath>include/Pattern.h</itemPath>
+      <itemPath>include/Phonemes.h</itemPath>
+      <itemPath>include/Recognizer.h</itemPath>
       <itemPath>include/VoiceControlWindow.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -13,6 +17,10 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/Letter.cpp</itemPath>
+      <itemPath>src/Pattern.cpp</itemPath>
+      <itemPath>src/Phonemes.cpp</itemPath>
+      <itemPath>src/Recognizer.cpp</itemPath>
       <itemPath>src/VoiceControlWindow.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
@@ -44,7 +52,7 @@
             <pElem>SSN/Neuron</pElem>
             <pElem>SSN/LibHelper</pElem>
           </incDir>
-          <commandLine>-std=c++0x</commandLine>
+          <commandLine>-std=gnu++0x -fopenmp -mtune=native -D_GLIBCXX_PARALLEL</commandLine>
         </ccTool>
         <linkerTool>
           <linkerAddLib>
