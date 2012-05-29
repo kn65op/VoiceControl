@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/src/Pattern.o \
 	${OBJECTDIR}/src/Recognizer.o \
+	${OBJECTDIR}/src/Phoneme.o \
 	${OBJECTDIR}/src/Phonemes.o
 
 
@@ -94,6 +95,11 @@ ${OBJECTDIR}/src/Recognizer.o: src/Recognizer.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Ialsa-cpp/include -Iaquila2.5/include -ISSN/NeuralNetwork -ISSN/Neuron -ISSN/LibHelper `pkg-config --cflags gtkmm-3.0` `pkg-config --cflags fftw3`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Recognizer.o src/Recognizer.cpp
+
+${OBJECTDIR}/src/Phoneme.o: src/Phoneme.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -Ialsa-cpp/include -Iaquila2.5/include -ISSN/NeuralNetwork -ISSN/Neuron -ISSN/LibHelper `pkg-config --cflags gtkmm-3.0` `pkg-config --cflags fftw3`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Phoneme.o src/Phoneme.cpp
 
 ${OBJECTDIR}/src/Phonemes.o: src/Phonemes.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src

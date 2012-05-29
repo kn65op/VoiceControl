@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>include/Letter.h</itemPath>
       <itemPath>include/Pattern.h</itemPath>
+      <itemPath>include/Phoneme.h</itemPath>
       <itemPath>include/Phonemes.h</itemPath>
       <itemPath>include/Recognizer.h</itemPath>
       <itemPath>include/VoiceControlWindow.h</itemPath>
@@ -19,6 +20,7 @@
                    projectFiles="true">
       <itemPath>src/Letter.cpp</itemPath>
       <itemPath>src/Pattern.cpp</itemPath>
+      <itemPath>src/Phoneme.cpp</itemPath>
       <itemPath>src/Phonemes.cpp</itemPath>
       <itemPath>src/Recognizer.cpp</itemPath>
       <itemPath>src/VoiceControlWindow.cpp</itemPath>
