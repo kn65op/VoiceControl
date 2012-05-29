@@ -22,7 +22,7 @@ public:
   void procedeAction(std::string s);
 private:
   typedef void (*MemPointer)();
-  map<std::string, MemPointer> map_void;
+  std::map<std::string, MemPointer> map_void;
 
   void someAction();
 };

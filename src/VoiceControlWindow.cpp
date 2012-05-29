@@ -9,9 +9,13 @@
 
 VoiceControlWindow::VoiceControlWindow()
 {
+  op = new Operator();
+  rec.setOperator(op);
+  rec.start();
 }
 
 VoiceControlWindow::~VoiceControlWindow()
 {
+  rec.stop();
 }
 

@@ -10,6 +10,9 @@
 
 #include <gtkmm-3.0/gtkmm.h>
 
+#include "Recorder.h"
+#include "Operator.h"
+
 class VoiceControlWindow : public Gtk::Window
 {
 public:
@@ -18,6 +21,9 @@ public:
   virtual ~VoiceControlWindow();
 private:
   Gtk::Button a;
+
+  Recorder rec;
+  Operator *op;
 };
 
 #endif	/* VOICECONTROLWINDOW_H */
