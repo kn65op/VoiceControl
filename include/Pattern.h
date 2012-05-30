@@ -9,6 +9,7 @@
 #define	PATTERN_H
 
 #include "Phoneme.h"
+#include "Operator.h"
 
 #include <vector>
 #include <list>
@@ -81,6 +82,12 @@ public:
    */
   static void loadPatterns(std::string file);
   /**
+   * Funkcja czytająca wzorce z pliku.
+   * @param file Nazwa pliku.
+   * @param op Operator do dopisania akcji.
+   */
+  static void loadPatterns(std::string file, Operator * op);
+  /**
    * Funkcja zapisujące wzorce do pliku.
    * @param file Nazwa pliku.
    */
@@ -116,6 +123,9 @@ public:
 private:
   static std::list<std::vector<Phoneme*>*> patterns;
   std::list<std::vector<Phoneme*>*> patterns_possible;
+
+  bool checkThis(std::vector<Phoneme*>* word, std::vector<std::vector<Phoneme*>> & phonemes, int pos_word, int pos_phonemes);
+
 };
 
 #endif	/* PATTERN_H */

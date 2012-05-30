@@ -50,6 +50,21 @@ void Pattern::loadPatterns(std::string file)
   patterns.pop_back();
 }
 
+void Pattern::loadPatterns(std::string file, Operator* op)
+{
+  std::ifstream in(file, std::ios::in);
+  std::string tmp;
+  std::string sop;
+  while (!in.eof())
+  {
+    in >> tmp;
+    in >> sop;
+    addPattern(Phoneme::getPhonemesFromString(tmp));
+    op->addAction(tmp, sop);
+  }
+  patterns.pop_back();
+}
+
 void Pattern::savePatterns(std::string file)
 {
   std::ofstream out(file, std::ios::out);
@@ -186,7 +201,7 @@ void Pattern::limitPatterns(std::vector<Phoneme*> limiter, int pos)
 
   patterns_possible.remove_if([limiter, pos](std::vector<Phoneme*>* pat)
   {
-    return std::find(limiter.begin(), limiter.end(), pat->at(pos)) == limiter.end();
+                              return std::find(limiter.begin(), limiter.end(), pat->at(pos)) == limiter.end();
   });
 }
 
@@ -208,4 +223,48 @@ std::string Pattern::convertToString(std::vector<Phoneme*>* word)
     ret += p->getSymbol();
   }
   return ret;
+}
+
+void Pattern::guessWord(std::vector<std::vector<Phoneme* >> phonemes)
+{
+
+}
+
+bool checkThis(std::vector<Phoneme*>* word, std::vector<std::vector<Phoneme* >> &phonemes, int pos_word, int pos_phonemes)
+{
+  for (auto p : phonemes[pos_phonemes])
+  {
+    try
+    {
+      if (word->at(pos_word) == p)
+      {
+        if (checkThis(word, phonemes, pos_word + 1, pos_phonemes + 1))
+        {
+          return true;
+        }
+      }
+      else if (pos_word > 1)
+      {
+        if (word->at(pos_word - 1) == p)
+        {
+          if (checkThis(word, phonemes, pos_word, pos_phonemes + 1))
+          {
+            return true;
+          }
+        }
+      }
+    }
+    catch (std::out_of_range e) //koniec wyrazu
+    {
+      for (auto it = phonemes.begin() + pos_phonemes + 1, end = phonemes.end(); it != end; ++it)
+      {
+        if (std::find(it->begin(), it->end(), word->back()) == it->end())
+        {
+          return false;
+        }
+      }
+      return true;
+    }
+  }
+  return false;
 }
