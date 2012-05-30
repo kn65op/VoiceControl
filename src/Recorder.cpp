@@ -70,6 +70,7 @@ void Recorder::record()
   std::vector < std::vector<double >> parameters;
   std::vector<double> probabilities_from_speech;
   std::vector<double> probabilities_from_patterns;
+  std::vector<Phoneme*> letters;
 
   int phonem_position;
 
@@ -96,9 +97,9 @@ void Recorder::record()
       probabilities_from_speech = recognizer.getProbabilities(p.begin(), p.end());
       probabilities_from_patterns = pattern.getProbabilitiesLetterPosition(phonem_position);
 
-      std::cout << recognizer.getLastLetter();
-      std::cout << "\n";
-      for (auto pp : probabilities_from_speech)
+      letters = reasoner.getPossibleLetters(probabilities_from_speech, probabilities_from_patterns, letters);
+
+      for (auto pp : letters)
       {
         std::cout << pp << " ";
       }

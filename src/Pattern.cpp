@@ -68,7 +68,11 @@ double Pattern::getProbablityLetterPosition(Phoneme* l, int n)
       //TODO: chyba nic
     }
   }
-  return double(count / all);
+  if (all)
+  {
+    return double(count / all);
+  }
+  return 0;
 }
 
 double Pattern::getProbablityLetterPositionAndPrecedence(Phoneme* l, int n, Phoneme* s)
@@ -90,7 +94,11 @@ double Pattern::getProbablityLetterPositionAndPrecedence(Phoneme* l, int n, Phon
       //TODO: chyba nic
     }
   }
-  return double(count / all);
+  if (all)
+  {
+    return double(count / all);
+  }
+  return 0;
 }
 
 double Pattern::getProbablityLetterPrecedence(Phoneme* l, Phoneme* s)
@@ -100,7 +108,7 @@ double Pattern::getProbablityLetterPrecedence(Phoneme* l, Phoneme* s)
   std::vector<Phoneme*>::iterator it, end;
   for (auto p : patterns_possible)
   {
-    for(it = p->begin(), end = p->end() - 1; it != end; ++it)
+    for (it = p->begin(), end = p->end() - 1; it != end; ++it)
     {
       try
       {
@@ -116,7 +124,11 @@ double Pattern::getProbablityLetterPrecedence(Phoneme* l, Phoneme* s)
       }
     }
   }
-  return double(count / all);
+  if (all)
+  {
+    return double(count / all);
+  }
+  return 0;
 }
 
 std::vector<double> Pattern::getProbabilitiesLetterPosition(int n)

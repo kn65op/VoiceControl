@@ -19,10 +19,10 @@ class Reasoner
 {
 public:
   Reasoner();
-  Reasoner(const Reasoner& orig);
+  Reasoner(const Reasoner& orig) = delete;
   virtual ~Reasoner();
 
-  std::vector<Phoneme*> getPossibleLetters(std::vector<double> & from_speech, std::vector<double> & from_patterns);
+  std::vector<Phoneme*> getPossibleLetters(std::vector<double> & from_speech, std::vector<double> & from_patterns, std::vector<Phoneme*> previous);
 private:
   NeuralNetwork<double, LinearActivationFunction <double> > network;
 

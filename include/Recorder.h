@@ -13,6 +13,7 @@
 
 #include "Operator.h"
 #include "Recognizer.h"
+#include "Reasoner.h"
 
 class Recorder
 {
@@ -28,6 +29,7 @@ public:
 private:
   Operator* oper;
   Recognizer recognizer;
+  Reasoner reasoner;
 
   std::atomic<bool> recording;
   void record();
