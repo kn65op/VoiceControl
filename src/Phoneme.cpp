@@ -112,3 +112,8 @@ void Phoneme::initPhonemes()
   phonemes.push_back(new Phoneme("Zy"));
   phonemes.push_back(new Phoneme("Zi"));
 }
+
+std::vector<Phoneme*> Phoneme::getPhonemes()
+{
+  return phonemes;
+}

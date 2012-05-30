@@ -34,6 +34,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/Reasoner.o \
 	${OBJECTDIR}/src/VoiceControlWindow.o \
 	${OBJECTDIR}/src/Letter.o \
 	${OBJECTDIR}/src/Recorder.o \
@@ -72,6 +73,11 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/voicecontrol: SSN/LibHelper/dist/Debu
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/voicecontrol: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/voicecontrol ${OBJECTFILES} ${LDLIBSOPTIONS} 
+
+${OBJECTDIR}/src/Reasoner.o: src/Reasoner.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -Ialsa-cpp/include -Iaquila2.5/include -ISSN/NeuralNetwork -ISSN/Neuron -ISSN/LibHelper `pkg-config --cflags gtkmm-3.0` `pkg-config --cflags fftw3`    -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Reasoner.o src/Reasoner.cpp
 
 ${OBJECTDIR}/src/VoiceControlWindow.o: src/VoiceControlWindow.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src

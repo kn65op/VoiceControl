@@ -11,6 +11,7 @@
 #include <Data.h>
 #include <Device.h>
 
+#include "../include/Pattern.h"
 
 ///TODO usunąć
 #include <iostream>
@@ -63,18 +64,22 @@ void Recorder::record()
   device.setFrequency(freq);
   device.open(TALSA::AccessMode::READ);
   data.setDataFormat(df);
-  data.setSize(time*freq);
+  data.setSize(time * freq);
   data.setFrameLength(256, 160);
   data.setSampleFrequency(freq);
-  std::vector<std::vector<double>> parameters;
+  std::vector < std::vector<double >> parameters;
   std::vector<double> probabilities_from_speech;
-  std::vector<double> 
+  std::vector<double> probabilities_from_patterns;
+
+  int phonem_position;
 
   while (recording)
   {
     std::cout << "READ\n";
     device.read(data);
-    
+    Pattern pattern;
+    phonem_position = 0;
+
     //MTMP
     data.saveRawDataToFile("raw_data.dat");
     //TMP
@@ -89,12 +94,13 @@ void Recorder::record()
     for (auto p : parameters)
     {
       probabilities_from_speech = recognizer.getProbabilities(p.begin(), p.end());
+      probabilities_from_patterns = pattern.getProbabilitiesLetterPosition(phonem_position);
 
       std::cout << recognizer.getLastLetter();
       std::cout << "\n";
       for (auto pp : probabilities_from_speech)
       {
-	std::cout << pp << " ";
+        std::cout << pp << " ";
       }
       std::cout << "\n";
     }

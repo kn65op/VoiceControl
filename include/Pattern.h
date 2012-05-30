@@ -31,6 +31,12 @@ public:
    */
   double getProbablityLetterPosition(Phoneme* l, int n);
   /**
+   * Funkcja licąca prawdopodobieństwa wystąpienia fonemów na danej pozycji we wzorcach.
+   * @param n Pozycja fonemu.
+   * @return Wektor prawdopodobieństw.
+   */
+  std::vector<double> getProbabilitiesLetterPosition(int n);
+  /**
    * Funkcja licząca prawdopodobieństwo wystąpnienia fonemu na danej pozycji i przy danym fonemie poprzedzającym.
    * @param l Phoneme* oznaczający fonem.
    * @param n Pozycja fonemu.
@@ -39,12 +45,25 @@ public:
    */
   double getProbablityLetterPositionAndPrecedence(Phoneme* l, int n, Phoneme* s);
   /**
+   * Funkcja licząca prawdopodobieństwa wystąpnienia fonemów na danej pozycji i przy danym fonemie poprzedzającym.
+   * @param n Pozycja fonemu.
+   * @param s Phoneme* oznaczający fonem poprzedzający.
+   * @return Wektor prawdopodobieństw.
+   */
+  double getProbablitiesLetterPositionAndPrecedence(int n, Phoneme* s);
+  /**
    * Funkcja licząca prawdopodobieństwo wystąpienia fonemu przy danym fonemie poprzedzającym.
    * @param l Phoneme* oznaczający fonem.
    * @param s Phoneme* oznaczający fonem poprzedzający.
    * @return  Prawdopodobieństwo.
    */
   double getProbablityLetterPrecedence(Phoneme* l, Phoneme* s);
+  /**
+   * Funkcja licząca prawdopodobieństwa wystąpienia fonemów przy danym fonemie poprzedzającym.
+   * @param s Phoneme* oznaczający fonem poprzedzający.
+   * @return  Wektor prawdopodobieństw.
+   */
+  double getProbablitiesLetterPrecedence(Phoneme* s);
   /**
    * Funkcja dodająca do zbioru wzorców nowy.
    * @param s std::vector<Phoneme*> oznaczający nowy wzorzec.

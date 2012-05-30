@@ -118,3 +118,14 @@ double Pattern::getProbablityLetterPrecedence(Phoneme* l, Phoneme* s)
   }
   return double(count / all);
 }
+
+std::vector<double> Pattern::getProbabilitiesLetterPosition(int n)
+{
+  std::vector<double> tmp;
+  std::vector<Phoneme*> pho = Phoneme::getPhonemes();
+  for (auto p : pho)
+  {
+    tmp.push_back(getProbablityLetterPosition(p, n));
+  }
+  return tmp;
+}

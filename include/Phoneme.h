@@ -51,6 +51,11 @@ public:
   {
     return symbol;
   }
+  /**
+   * Funkcja zwracająca wektor fonemów.
+   * @return std::vector fonemów.
+   */
+  static std::vector<Phoneme*> getPhonemes();
 private:
   std::string symbol;
   static std::vector<Phoneme*> phonemes;

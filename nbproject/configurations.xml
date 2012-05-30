@@ -10,6 +10,8 @@
       <itemPath>include/Pattern.h</itemPath>
       <itemPath>include/Phoneme.h</itemPath>
       <itemPath>include/Phonemes.h</itemPath>
+      <itemPath>src/Reasoner.cpp</itemPath>
+      <itemPath>include/Reasoner.h</itemPath>
       <itemPath>include/Recognizer.h</itemPath>
       <itemPath>include/Recorder.h</itemPath>
       <itemPath>include/VoiceControlWindow.h</itemPath>
