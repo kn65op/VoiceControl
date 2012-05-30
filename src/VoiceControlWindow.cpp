@@ -7,6 +7,8 @@
 
 #include "../include/VoiceControlWindow.h"
 
+#include "../include/Pattern.h"
+
 //TODO usunąć
 #include <iostream>
 
@@ -19,6 +21,8 @@ VoiceControlWindow::VoiceControlWindow()
   start_stop.signal_clicked().connect(sigc::mem_fun(*this, &VoiceControlWindow::on_start_stop_clicked));
   add(start_stop);
   start_stop.show();
+
+  Pattern::loadPatterns("paterny");
 }
 
 VoiceControlWindow::~VoiceControlWindow()

@@ -9,6 +9,10 @@
 
 #include <fstream>
 #include <stdexcept>
+
+//TODO usunąć
+#include <iostream>
+
 std::list<std::vector<Phoneme*>*> Pattern::patterns = std::list<std::vector<Phoneme*>*>();
 
 Pattern::Pattern() : patterns_possible(patterns)
@@ -70,7 +74,10 @@ double Pattern::getProbablityLetterPosition(Phoneme* l, int n)
   }
   if (all)
   {
-    return double(count / all);
+    std::cout << count << ":!@#@!#!\n";
+    std::cout << all << ":!@#@!#!\n";
+    std::cout << (count / all) << ":!@#@!#!\n";
+    return double(count) / double(all);
   }
   return 0;
 }
