@@ -34,14 +34,45 @@
 //#define CALC_AVG
 //#define LAST_CHANCE
 
+#define LEARN_NETWORK
+
 /*
  * 
  */
 int main(int argc, char** argv)
 {
+#ifdef LEARN_NETWORK
+
+  NeuralNetwork<double, LinearActivationFunction<double>> network;
+  network.setEntries(7);
+  network.setExits(2);
+  network.setLayersCount(2);
+  network.setNeurons(1, 5);
+  network.init();
+  std::vector<double> input(7);
+  std::vector<double> output(2);
+  std::ifstream file("to_learn", std::ios::in);
+  while (!file.eof())
+  {
+    for (auto & i : input)
+    {
+      file >> i;
+    }
+    for (auto & o : output)
+    {
+      file >> o;
+    }
+    network.insertPattern(input.begin(), input.end(), output.begin(), output.end());
+  }
+  network.learnFromPattern(0.01);
+  network.saveNetworkToFile("reasoner.net");
+  
+#endif
+  
   Glib::RefPtr<Gtk::Application> app = Gtk::Application::create(argc, argv, "org.gtkmm.example");
   VoiceControlWindow vcw;
   return app->run(vcw);
+
 #ifdef LAST_CHANCE
   Recognizer recognizer;
   recognizer.loadParameters();

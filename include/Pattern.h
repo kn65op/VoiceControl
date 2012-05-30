@@ -50,7 +50,7 @@ public:
    * @param s Phoneme* oznaczający fonem poprzedzający.
    * @return Wektor prawdopodobieństw.
    */
-  double getProbablitiesLetterPositionAndPrecedence(int n, Phoneme* s);
+  std::vector<double> getProbablitiesLetterPositionAndPrecedence(int n, Phoneme* s);
   /**
    * Funkcja licząca prawdopodobieństwo wystąpienia fonemu przy danym fonemie poprzedzającym.
    * @param l Phoneme* oznaczający fonem.
@@ -63,7 +63,13 @@ public:
    * @param s Phoneme* oznaczający fonem poprzedzający.
    * @return  Wektor prawdopodobieństw.
    */
-  double getProbablitiesLetterPrecedence(Phoneme* s);
+  std::vector<double> getProbablitiesLetterPrecedence(Phoneme* s);
+  /**
+   * Funkcja licząca prawdopodobieństwa wystąpienia fonemów przy danych fonemach poprzedzających.
+   * @param s std::vector<Phoneme*> oznaczający fonemy poprzedzające.
+   * @return  Wektor prawdopodobieństw.
+   */
+  std::vector<double> getProbablitiesLetterPrecedence(std::vector<Phoneme*> s);
   /**
    * Funkcja dodająca do zbioru wzorców nowy.
    * @param s std::vector<Phoneme*> oznaczający nowy wzorzec.
@@ -81,10 +87,10 @@ public:
   static void savePatterns(std::string file);
   /**
    * Funkcja ograniczająca możliwe wzorce.
-   * @param limiter Fragment, który musi być dopasowany.
-   * @param pos Pozycja fragmentu.
+   * @param limiter Fonemy, które muszą być dopasowane.
+   * @param pos Pozycja fonemu.
    */
-  void limitPatters(std::string limiter, int pos);
+  void limitPatterns(std::vector<Phoneme*> limiter, int pos);
   /**
    * Funkcja zwracająca informację, czy są jeszcze jakieś wzorce po ograniczeniach.
    * @return true jeśli są, false w przeciwnym wypadku.
@@ -95,6 +101,17 @@ public:
    * @return Jedyny wzorzec jaki pozostał lub pusty string jeśli nie ma żadnego wzorca lub jest ich wiele.
    */
   std::string getPattern() const;
+  /**
+   * Funkcja szukająca słowa.
+   * @param phonemes Wektor z możliwymi fonemami.
+   */
+  void guessWord(std::vector<std::vector<Phoneme*>> phonemes);
+  /**
+   * Funkcja zamieniająca wzorzec zapisany w postaci fonemów na string.
+   * @param word Słowo do zamiany w postaci wektora fonemów.
+   * @return Słowo jako std::string.
+   */
+  static std::string convertToString(std::vector<Phoneme*>* word);
 
 private:
   static std::list<std::vector<Phoneme*>*> patterns;

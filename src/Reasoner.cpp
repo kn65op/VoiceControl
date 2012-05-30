@@ -13,7 +13,7 @@
 
 Reasoner::Reasoner()
 {
-//  network.loadNetworkFromFile("reasoner.net");
+  network.loadNetworkFromFile("reasoner.net");
 }
 
 Reasoner::~Reasoner()
@@ -37,7 +37,6 @@ std::vector<Phoneme*> Reasoner::getPossibleLetters(std::vector<double>& from_spe
   input[4] = *max_patterns;
   std::vector<double> out;
    
-  std::cout << phonemes.size() << "\n";
   for (auto p : phonemes)
   {
     input[0] = std::find(previous.begin(), previous.end(), p) == previous.end() ? 0 : 1;
@@ -51,13 +50,20 @@ std::vector<Phoneme*> Reasoner::getPossibleLetters(std::vector<double>& from_spe
     }
     std::cout << "\n";
 
-   // network.setInput(input.begin(), input.end());
-    /*/
+    network.setInput(input.begin(), input.end());
+    
     out = network.calcOutput();
-    if (out[1] > 0.9)
+
+    for (auto o: out)
+    {
+      std::cout << o << " ";
+    }
+    std::cout << "\n";
+    if (out[0] > 0.9)
     {
       ret.push_back(p);
-    }**/
+    }
   }
+  return ret;
 }
 

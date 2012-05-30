@@ -9,6 +9,7 @@
 
 #include <fstream>
 #include <stdexcept>
+#include <algorithm>
 
 //TODO usunąć
 #include <iostream>
@@ -29,9 +30,9 @@ Pattern::~Pattern()
 
 void Pattern::addPattern(std::vector<Phoneme*> s)
 {
-  for (auto p:s)
+  for (auto p : s)
   {
-    std::cout << p->getSymbol() << ":"; 
+    std::cout << p->getSymbol() << ":";
   }
   std::cout << "\n";
   patterns.push_back(new std::vector<Phoneme*>(s));
@@ -150,4 +151,61 @@ std::vector<double> Pattern::getProbabilitiesLetterPosition(int n)
     tmp.push_back(getProbablityLetterPosition(p, n));
   }
   return tmp;
+}
+
+std::vector<double> Pattern::getProbablitiesLetterPrecedence(Phoneme* s)
+{
+  std::vector<double> ret;
+  std::vector<Phoneme*> pho = Phoneme::getPhonemes();
+  for (auto p : pho)
+  {
+    ret.push_back(getProbablityLetterPrecedence(p, s));
+  }
+  return ret;
+}
+
+std::vector<double> Pattern::getProbablitiesLetterPrecedence(std::vector<Phoneme*> s)
+{
+  std::vector<double> ret;
+  double tmp;
+  std::vector<Phoneme*> pho = Phoneme::getPhonemes();
+  for (auto p : pho)
+  {
+    tmp = 0;
+    for (auto ss : s)
+    {
+      tmp += getProbablityLetterPrecedence(p, ss);
+    }
+    ret.push_back(tmp / s.size());
+  }
+  return ret;
+}
+
+void Pattern::limitPatterns(std::vector<Phoneme*> limiter, int pos)
+{
+
+  patterns_possible.remove_if([limiter, pos](std::vector<Phoneme*>* pat)
+  {
+    return std::find(limiter.begin(), limiter.end(), pat->at(pos)) == limiter.end();
+  });
+}
+
+bool Pattern::isPattern() const
+{
+  return patterns_possible.size() == 1;
+}
+
+std::string Pattern::getPattern() const
+{
+  return Pattern::convertToString(patterns_possible.front());
+}
+
+std::string Pattern::convertToString(std::vector<Phoneme*>* word)
+{
+  std::string ret;
+  for (auto p : *word)
+  {
+    ret += p->getSymbol();
+  }
+  return ret;
 }
