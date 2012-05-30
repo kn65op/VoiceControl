@@ -29,6 +29,11 @@ Pattern::~Pattern()
 
 void Pattern::addPattern(std::vector<Phoneme*> s)
 {
+  for (auto p:s)
+  {
+    std::cout << p->getSymbol() << ":"; 
+  }
+  std::cout << "\n";
   patterns.push_back(new std::vector<Phoneme*>(s));
 }
 
@@ -41,6 +46,7 @@ void Pattern::loadPatterns(std::string file)
     in >> tmp;
     addPattern(Phoneme::getPhonemesFromString(tmp));
   }
+  patterns.pop_back();
 }
 
 void Pattern::savePatterns(std::string file)
@@ -74,9 +80,6 @@ double Pattern::getProbablityLetterPosition(Phoneme* l, int n)
   }
   if (all)
   {
-    std::cout << count << ":!@#@!#!\n";
-    std::cout << all << ":!@#@!#!\n";
-    std::cout << (count / all) << ":!@#@!#!\n";
     return double(count) / double(all);
   }
   return 0;
@@ -103,7 +106,7 @@ double Pattern::getProbablityLetterPositionAndPrecedence(Phoneme* l, int n, Phon
   }
   if (all)
   {
-    return double(count / all);
+    return double(count) / double(all);
   }
   return 0;
 }
@@ -133,7 +136,7 @@ double Pattern::getProbablityLetterPrecedence(Phoneme* l, Phoneme* s)
   }
   if (all)
   {
-    return double(count / all);
+    return double(count) / double(all);
   }
   return 0;
 }

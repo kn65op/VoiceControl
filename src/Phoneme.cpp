@@ -38,11 +38,11 @@ std::vector<Phoneme*> Phoneme::getPhonemesFromString(std::string s)
   {
     try
     {
-      if (islower(s.at(i - 1)))
+      if (islower(s.at(i + 1)))
       {
         tmp.push_back(Phoneme::getPhonemeFromString(s.substr(i, 2)));
         ++i;
-        break;
+        continue;
       }
     }
     catch (std::out_of_range e)
