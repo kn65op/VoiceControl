@@ -65,12 +65,20 @@ void Recorder::record()
   data.setDataFormat(df);
   data.setSize(time*freq);
   data.setFrameLength(256, 160);
+  data.setSampleFrequency(freq);
   std::vector<std::vector<double>> parameters;
-  std::vector<double> probabilities;
+  std::vector<double> probabilities_from_speech;
+  std::vector<double> 
+
   while (recording)
   {
     std::cout << "READ\n";
     device.read(data);
+    
+    //MTMP
+    data.saveRawDataToFile("raw_data.dat");
+    //TMP
+
     if (!data.findSpeechBorders()) //nie ma mowy w nagranym fragmencie
     {
       continue;
@@ -80,14 +88,16 @@ void Recorder::record()
     parameters = data.getParameters();
     for (auto p : parameters)
     {
-      probabilities = recognizer.getProbabilities(p.begin(), p.end());
-      recognizer.getLastLetter();
+      probabilities_from_speech = recognizer.getProbabilities(p.begin(), p.end());
+
+      std::cout << recognizer.getLastLetter();
       std::cout << "\n";
-      for (auto pp : probabilities)
+      for (auto pp : probabilities_from_speech)
       {
 	std::cout << pp << " ";
       }
       std::cout << "\n";
     }
   }
+  device.close();
 }

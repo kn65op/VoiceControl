@@ -62,7 +62,7 @@ int main(int argc, char** argv)
     std::cout << recognizer.getLastLetter() << "\n";
     for (auto o : out)
     {
-      std::cout << o <<  " " ;
+      std::cout << o << " ";
     }
     std::cout << "\n";
   }
@@ -839,7 +839,10 @@ int main(int argc, char** argv)
 
   //próba z użyciem binarnego wektora
 
+  data.findSpeechBorders();
   data.findPhonemeBorders();
+  data.analyzeSegments();
+  data.getParameters();
 
 
 
