@@ -26,10 +26,10 @@ std::vector<Phoneme*> Reasoner::getPossibleLetters(std::vector<double>& from_spe
   std::vector<Phoneme*> ret;
   std::vector<Phoneme*> phonemes = Phoneme::getPhonemes();
   //szukanie max w speech
-  std::vector<double>::iterator max_speech = std::max(from_speech.begin(), from_speech.end());
-  std::vector<double>::iterator max_patterns = std::max(from_patterns.begin(), from_patterns.end());
-  std::vector<double>::iterator it_speech = std::max(from_speech.begin(), from_speech.end());
-  std::vector<double>::iterator it_patterns = std::max(from_patterns.begin(), from_patterns.end());
+  std::vector<double>::iterator max_speech = std::max_element(from_speech.begin(), from_speech.end());
+  std::vector<double>::iterator max_patterns = std::max_element(from_patterns.begin(), from_patterns.end());
+  std::vector<double>::iterator it_speech = from_speech.begin();
+  std::vector<double>::iterator it_patterns = from_patterns.begin();
   std::vector<double> input(7);
   input[1] = *max_speech;
   input[2] = from_patterns[max_speech - from_speech.begin()];
@@ -37,6 +37,7 @@ std::vector<Phoneme*> Reasoner::getPossibleLetters(std::vector<double>& from_spe
   input[4] = *max_patterns;
   std::vector<double> out;
    
+  std::cout << phonemes.size() << "\n";
   for (auto p : phonemes)
   {
     input[0] = std::find(previous.begin(), previous.end(), p) == previous.end() ? 0 : 1;
