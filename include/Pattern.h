@@ -102,7 +102,12 @@ public:
    * Funkcja zwracająca informację, czy są jeszcze jakieś wzorce po ograniczeniach.
    * @return true jeśli są, false w przeciwnym wypadku.
    */
-  bool isPattern() const;
+  bool isAnyPattern() const;
+  /**
+   * Funkcja zwracająca informację, czy jest tylko jeden wzorzec,
+   * @return 
+   */
+  bool isOnePattern() const;
   /**
    * Funkcja zwracająca wzorzec jeśli jest tylko jeden.
    * @return Jedyny wzorzec jaki pozostał lub pusty string jeśli nie ma żadnego wzorca lub jest ich wiele.
@@ -124,7 +129,7 @@ private:
   static std::list<std::vector<Phoneme*>*> patterns;
   std::list<std::vector<Phoneme*>*> patterns_possible;
 
-  bool checkThis(std::vector<Phoneme*>* word, std::vector<std::vector<Phoneme*>> & phonemes, int pos_word, int pos_phonemes);
+  bool checkThis(std::vector<Phoneme*>* word, std::vector<std::vector<Phoneme*>> & phonemes, int pos_word, int pos_phonemes, bool can_skip);
 
 };
 

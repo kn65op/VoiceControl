@@ -17,15 +17,17 @@ public:
   Operator();
   Operator(const Operator& orig);
   virtual ~Operator();
-  typedef void (*MemPointer)();
+  typedef void (Operator::*MemPointer)();
 
   void addAction(std::string s, MemPointer action);
   void addAction(std::string s, std::string action_code);
   void procedeAction(std::string s);
+  void readActions(std::string filename);
 private:
   std::map<std::string, MemPointer> map_void;
 
   void someAction();
+
 };
 
 #endif	/* OPERATOR_H */

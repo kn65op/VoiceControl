@@ -34,7 +34,7 @@
 //#define CALC_AVG
 //#define LAST_CHANCE
 
-#define LEARN_NETWORK
+//#define LEARN_NETWORK
 
 /*
  * 

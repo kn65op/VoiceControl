@@ -99,13 +99,14 @@ void Recorder::record()
       if (!phonem_position)
       {
         probabilities_from_patterns = pattern.getProbabilitiesLetterPosition(phonem_position++);
+        phonemes_possible.push_back(reasoner.getPossibleLetters(probabilities_from_speech, probabilities_from_patterns, std::vector<Phoneme*>()));
       }
       else
       {
         probabilities_from_patterns = pattern.getProbablitiesLetterPrecedence(phonemes_possible.back());
+        phonemes_possible.push_back(reasoner.getPossibleLetters(probabilities_from_speech, probabilities_from_patterns, phonemes_possible.back()));
       }
 
-      phonemes_possible.push_back(reasoner.getPossibleLetters(probabilities_from_speech, probabilities_from_patterns, phonemes_possible.back()));
       if (!phonem_position)
       {
         pattern.limitPatterns(phonemes_possible.back(), 0);
@@ -117,14 +118,19 @@ void Recorder::record()
         std::cout << pp->getSymbol() << " ";
       }
       std::cout << "\n";
+      if (!pattern.isAnyPattern())
+      {
+	continue;
+      }
     }
 
     pattern.guessWord(phonemes_possible);
 
-    if (pattern.isPattern())
+    if (pattern.isOnePattern())
     {
       oper->procedeAction(pattern.getPattern());
     }
+
   }
   device.close();
 }

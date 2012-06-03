@@ -205,7 +205,7 @@ void Pattern::limitPatterns(std::vector<Phoneme*> limiter, int pos)
   });
 }
 
-bool Pattern::isPattern() const
+bool Pattern::isOnePattern() const
 {
   return patterns_possible.size() == 1;
 }
@@ -227,18 +227,31 @@ std::string Pattern::convertToString(std::vector<Phoneme*>* word)
 
 void Pattern::guessWord(std::vector<std::vector<Phoneme* >> phonemes)
 {
-
+  auto it = patterns_possible.begin();
+  while (it != patterns_possible.end())
+  {
+    if (checkThis(*it, phonemes, 0, 0, true))
+    {
+      ++it;
+    }
+    else
+    {
+      it = patterns_possible.erase(it);
+    }
+  }
 }
 
-bool checkThis(std::vector<Phoneme*>* word, std::vector<std::vector<Phoneme* >> &phonemes, int pos_word, int pos_phonemes)
+bool Pattern::checkThis(std::vector<Phoneme*>* word, std::vector<std::vector<Phoneme* >> &phonemes, int pos_word, int pos_phonemes, bool can_skip)
 {
-  for (auto p : phonemes[pos_phonemes])
+  try
+  {
+  for (auto p : phonemes.at(pos_phonemes))
   {
     try
     {
       if (word->at(pos_word) == p)
       {
-        if (checkThis(word, phonemes, pos_word + 1, pos_phonemes + 1))
+        if (checkThis(word, phonemes, pos_word + 1, pos_phonemes + 1, true))
         {
           return true;
         }
@@ -247,18 +260,26 @@ bool checkThis(std::vector<Phoneme*>* word, std::vector<std::vector<Phoneme* >> 
       {
         if (word->at(pos_word - 1) == p)
         {
-          if (checkThis(word, phonemes, pos_word, pos_phonemes + 1))
+          if (checkThis(word, phonemes, pos_word, pos_phonemes + 1, true))
           {
             return true;
           }
         }
+      }
+      if (can_skip && checkThis(word, phonemes, pos_word, pos_phonemes + 1, false))
+      {
+        return true;
+      }
+      else if (can_skip && checkThis(word, phonemes, pos_word + 1, pos_phonemes, false))
+      {
+        return true;
       }
     }
     catch (std::out_of_range e) //koniec wyrazu
     {
       for (auto it = phonemes.begin() + pos_phonemes + 1, end = phonemes.end(); it != end; ++it)
       {
-        if (std::find(it->begin(), it->end(), word->back()) == it->end())
+        if (std::find(it->begin(), it->end() - 1, word->back()) == it->end() - 1)
         {
           return false;
         }
@@ -266,5 +287,15 @@ bool checkThis(std::vector<Phoneme*>* word, std::vector<std::vector<Phoneme* >> 
       return true;
     }
   }
+  }
+  catch (std::out_of_range)
+  {
+    return (word->size() == pos_word);
+  }
   return false;
+}
+
+bool Pattern::isAnyPattern() const
+{
+  return patterns_possible.size() > 0;
 }

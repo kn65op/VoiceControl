@@ -15,6 +15,7 @@
 VoiceControlWindow::VoiceControlWindow()
 {
   op = new Operator();
+  op->readActions("patterns");
   rec.setOperator(op);
   start_stop.set_label("Start");
   recording = false;

@@ -44,21 +44,21 @@ std::vector<Phoneme*> Reasoner::getPossibleLetters(std::vector<double>& from_spe
     input[6] = *(it_patterns++);
 
     //TMP
-    for (auto i: input)
-    {
-      std::cout << i << " ";
-    }
-    std::cout << "\n";
+    //for (auto i: input)
+   // {
+  //    std::cout << i << " ";
+ //   }
+//    std::cout << "\n";
 
     network.setInput(input.begin(), input.end());
     
     out = network.calcOutput();
 
-    for (auto o: out)
-    {
-      std::cout << o << " ";
-    }
-    std::cout << "\n";
+    //for (auto o: out)
+   // {
+   //   std::cout << o << " ";
+    //}
+    //std::cout << "\n";
     if (out[0] > 0.9)
     {
       ret.push_back(p);
