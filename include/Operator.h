@@ -18,6 +18,7 @@ public:
   Operator(const Operator& orig);
   virtual ~Operator();
   typedef void (Operator::*MemPointer)();
+  typedef void (Operator::*MemPointerString)(std::string);
 
   void addAction(std::string s, MemPointer action);
   void addAction(std::string s, std::string action_code);
@@ -25,8 +26,11 @@ public:
   void readActions(std::string filename);
 private:
   std::map<std::string, MemPointer> map_void;
+  std::map<std::string, MemPointerString> map_string;
+  std::map<std::string, std::string> map_patters_action;
 
   void someAction();
+  void runProgram(std::string pro);
 
 };
 

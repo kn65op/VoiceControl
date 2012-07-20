@@ -128,6 +128,7 @@ void Recorder::record()
 
     if (pattern.isOnePattern())
     {
+      std::cout << pattern.getPattern() << "\n";
       oper->procedeAction(pattern.getPattern());
     }
 
