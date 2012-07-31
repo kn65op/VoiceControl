@@ -1,0 +1,43 @@
+\chapter{Realizacja algorytmu z~artykułu}
+\label{cha:nieudane}
+
+Algorytm jest podzielony na kilka części, które są przeprowadzane szeregowo. Są to: podział mowy na fonemy, wyliczenie cech z danego fragmentu oraz rozpoznanie. Wszystkie są opisane ponieżej. Następną częścią powinno być dopasowanie znalezionych fonemów do zdefiniowanych wzorców, ale nie została zaimplementowana, ponieważ nie udało się uzyskać odpowiednich wyników w częściach wcześniejszych.
+
+\section{Rozdzielenie fonemów}
+\label{sec:rozdzielenie}
+
+Przy rozpoznawaniu pojedynczych fonemów pierwszą czynnością, którą należy wykonać jest podział sygnału mowy na pojedyncze fonemy. W tym celu wyliczane jest ALCR ?odowłanie?. ALCR jest to ,,Average Level Crossing Rate''. Jest to średnia liczba przecięcia ustalonych progów przez sygnał mowy. Wykorzystany sposób wyliczenia ALCR jest następujący:
+
+\begin{itemize}
+    \item Wyznacznie progów. Do tego celu użyto rekomendacji w~?odowłanie? dotyczącej rozmieszczenia progów. Największa gęstość progów powinna być w~pobliżu zera oraz w~pobliżu maksymalnej wartości. Natomiast im bliżej środka, tym bardziej gęstość progów maleje.
+    \item Wyliczenie LCR (,,Level Crossing Rate''). Dla każdej próbki wyliczana jest liczba progów, które zostały przecięte przez linię łączącą daną próbkę z~próbką poprzednią. W~oryginalnym algorytmie ta wartość była uśredniana w~pewnym otoczeniu, dla każdego progu. W implementacji ten krok został pomienięty, ponieważ znacznie zwiększał czas trwania obliczeń, a~poprawa działania algorytmu znikoma, jeśli w~ogóle istniałą.
+    \item Wyliczenie ALCR. ACLR jest to średnia z~wyliczonych w~poprzednim kroku wartości z~pewnego zakresu. W~opisie algorymtu oraz w implementacji użyto otoczenia o~promieniu 100 próbek.
+\end{itemize}
+
+Po wyliczeniu ALCR należy znaleźć granice fonemów. Tymi granicami są minima lokalne funkcji ALCR, które spełniają następujące warunki:
+\begin{itemize}
+    \item Minimalna długość trwania fonemu to 12ms.
+    \item Minimum lokalne musi być minimum w zakresie 20ms.
+\end{itemize}
+
+Znalezione w~ten sposób minima są punktami wyznaczającymi granice fonemów.
+
+\section{Wyliczenie cech}
+\label{sec:cechybin}
+
+Ten etap jest przeprowadzany tylko dla tych fragmentów sygnału wyznaczonych w~poprzednim etapie, w których stwierdzono obecność mowy. Określanie obecności mowy odbywa się za pomocą obliczania energii fragmentu sygnału.
+
+Wektorem cech jest wektor binarny otrzymywany z PSD (,,Power Spectral Density'').
+
+PSD jest obliczane jako szybka transformata Fouriera funkcji autokorelacji sygnału wejściowego. Ponieważ ustalona wielkość wektora to 513 bitów, to autokorelacji podlega jedynie 512 początkowych próbek w danym fonemie (które powinny być reprezentatywne). Po operacji autokorelacji do transformacji Fouriera używanych jest 1024 próbki. Po zastosowaniu transformacji Fouriera wybieranych jest 513 próbek, poddanych wcześniej operacji obliczania modułu.
+
+Wyliczone w~ten sposób PSD jest poddawne operacji progowania. Niestety nie przedstawiono w artykule sposobu dobierania wartość progu. Prób został przyjęty jako 20\% wartości maksymalnej PSD. Wartościom powyżej progu przypisywano 1, a~ponieżej progu 0. W ten sposób otrzymano wektor cech.
+
+Na tym etapie zauważono, że kształ PSD dla fonemu ,,s'' odbiega od przedstawionego w ?odwołanie?.
+
+\section{Rozpoznanie}
+\label{sec:rozpoznaniebin}
+
+Do rozpoznawanio użyto sieci neuronowej typu ,,Back Propagation'' o 513 wejściach oraz 34 wyjściach (po jednym dla każdego fonemu). Próby uzyskania optymalnej struktury sieci nie udały się. Probowano sieci dwu- oraz trzywarstwiwe o różnych liczbach neuronów ukrytych, ale żadna sieć osiągnęła wystarczająco niskiego błędu. Sieci o najmniejszych błędach dla danych uczących nie były w stanie rozpoznawać poprawnie fonemów, nawet z ograniczonego zbioru.
+
+W~związku z~brakiem uzyskania satysfakcjonujących rezultatów próbowano zastosować inne wektory binarne np. otrzymane z~transformaty Fouriera sygnału oryginalnego, bądź łączących oba te wektory, lecz żadne z rozwiązań nie dawała zadowalających efektów. Zdecydowano wybrać zupełnie inny zestaw parametrów opisujących sygnał, co jest opisane w części \ref{cha:algorytm}.

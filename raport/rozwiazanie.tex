@@ -1,0 +1,65 @@
+\chapter{Wykorzystany algorytm}
+\label{cha:algorytm}
+
+Zastosowany algorytm jest podobny do poprzedniego i~składa się z~następujących części: podział na fonemy, ekstrakcja cech, rozpoznanie fonemów i~dopasowanie do wzorca.
+
+\section{Podział na fonemy}
+\label{sec:podzial}
+
+Podział na fonemy został przeprowadzony dokładnie tak samo jak w~poprzednim rozwiązaniu, z~użyciem ALCR. Należy tutaj jednak wspomnieć o~wadach tego podziału:
+\begin{itemize}
+    \item Nie zawsze dokładnie rozdziela fonemy w~punkcie, który podczas analizy wzrokowej uznano by za punkt graniczny.
+    \item Dłuższe fonemy są często dzielone na większą liczbę fragmentów.
+\end{itemize}
+
+Wspomniano o~wadach, ponieważ mają one wpływ na jakość rozpoznawania oraz konieczność ich uzględnienia w następnych etapch algorytmu. Rośnie także złożoność obliczeniowa algorytmu.
+
+\section{Ekstrakcja cech}
+\label{sec:ekstrakcja}
+Do rozpoznania wybrano cechy otrzymane z postaci czasowej i~częstotliwościowej. Wybrano 12 parametrów oraz zbadano ich zmienność zarówno w~obrębie pojedynczych fonemów, jak i~zmienność pomiędzy fonemami. Te, które określały się najlepszą zmiennością dla różnych fonemów oraz najmniejszą dla pojedynczych fonemów zostały użyte do rozpoznawania. Wszystkie zostały znormalizowane. Są to:
+\begin{itemize}
+    \item Liczba przejść przez zero,
+    \item Stosunek największej wartości w danym fragmencie do najmniejszej,
+    \item Moment spektralny zerowego rzędu,
+    \item Moment znormalizowany pierwszego rzędu,
+    \item Moment scentralizowany drugiego rzędu,
+    \item Moment scentralizowany trzeciego rzędu,
+    \item Stosunek mocy częstotliowści wysokich do częstotliwości niskich.
+\end{itemize}
+
+Wartości czasowe są liczone bez preemfazy, a~wartości częstotliwościowe są liczone z preemfazą.
+
+\section{Rozpoznanie fonemów}
+\label{sec:rozpoznanie}
+
+Rozpoznanie fonemów odbywa się na podstawie dwóch prawdopodieństw: prawdopodobieństwa, że dany fonem wejściowy jest określonym fonemem oraz na podstawie prawdopodobieństwa, że dany fonem powinien wystąpić w danym miejscu (obliczanym na podstawie wzorców do rozpoznania).
+
+Wyznaczono zakresy zmienności dla każdego parametru i każdego fonemu. W ten sposób otrzymano rozkład wartości parametrów dla każdego fonemu. Z rozkładu wyznaczono wartości prawdopodobieństw dla każdego parametru i fonemu. W ten sposób otrzymując na wejściu wektor cech otrzymujemy prawdopodobieństwo wystąpienia danego fonemu.
+
+W celu wyznaczenia prawdopodobieństwa wyliczanego z wzroców oblicza się prawdopodobieństwo wystąpienia fonemu następującego po poprzednio rozpoznanym.
+
+Do rozpoznania używana jest sieć neuronowa. Wejściami do sieci są:
+\begin{itemize}
+    \item Prawdopodobieństwa dla danego fonemu,
+    \item Prawdopodobieństwa dla fonemu o największym prawdopodobieństwie wyliczonym za pomocą wzorców dla fonemów,
+    \item Prawdopodobieństwa dla fonemu o największym prawdopodobieńśtwie wyliczonym za pomocą słów do rozpoznania,
+    \item Wartości binarnej określającej czy poprzednio rozpoznany fonem jest badanym fonemem.
+\end{itemize}
+
+Ostatnia wartość polepsza działanie sieci dla długi fonemów, które składają się z kilku fragmentów.
+
+Użyta sieć neuronowa jest siecią typu ,,Back Propagation'', z siedmiowa wejściami, trzema warstwami ukrytymi (pięć nieuronów oraz dwa neurony) oraz dwa wyjścia. Jedno wyjście określa rozpoznanie fonemu a~drugie określa brak rozpoznania fonemu. Wielkość sieci została określona na podstawie badań empirycznych.
+
+Dla jednego fragmentu rozpoznawanego może być rozpoznanych kilka fonemów.
+
+\section{Dopasowanie do wzorca}
+\label{sec:dopasowanie}
+
+Dopasowanie do wzorca odbywa się na podstawie sprawdzania czy kolejne rozpoznane fonemu są dopasowane do jakiegoś wzorca. Są określone następujące warunki pozwalające na dopasowanie:
+\begin{itemize}
+    \item Jeden fonem w wyrazie może zostać nie rozpoznany,
+    \item Jednemu fonemowi we wzorcu może być dopasowanych kilka fragmentów,
+    \item Mogą być fragmenty pominięte, z uwagi na szum oraz inne artefakty w sygnale.
+\end{itemize}
+
+Niestety w te sposób określone dopasowanie o wzorca ma dużą złożoność obliczeniową.

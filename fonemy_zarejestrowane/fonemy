@@ -1,0 +1,43 @@
+A - wektorA.dat
+Ą - wektorAi.dat
+B - wektorB.dat
+C - wektorC.dat
+Ć - wektorCi.dat
+CZ - wektorCZ.dat
+D - wektorD.dat
+DZ - wektorDZ.dat
+DŻ - wektorDZy.dat
+DŹ - wektorDZi.dat
+E - wektorE.dat
+Ę - wektorEi.dat
+F - wektorF.dat
+G - wektorG.dat
+Gi - wektorGi.dat - na razie nie
+H - wektorH.dat
+I - wektorI.dat 
+J - wektorJ.dat
+K - wektorK.dat
+Ki - wektorKi.dat - na razie nie
+L - wektorL.dat
+Ł - wektorLi.dat
+M - wektorM.dat
+N - wektorN.dat
+Ń - wektorNi.dat
+O - wektorO.dat
+P - wektorP.dat
+R - wektorR.dat
+S - wektorS.dat
+Ś - wektorSi.dat
+SZ - wektorSz.dat
+T - wektorT.dat
+U - wektorU.dat
+W - wektorW.dat
+Y - wektorY.dat
+Z - wektorZ.dat
+Ż - wektorZy.dat
+Ź - wektorZi.dat
+
+legenda:
+- to robić
+
+dla każdego fonemu 4 próbki: na początku wyrazu, na końcu, w środku i samodzielnie

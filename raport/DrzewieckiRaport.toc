@@ -1,0 +1,12 @@
+\select@language {polish}
+\contentsline {chapter}{\numberline {1}Wst\IeC {\k e}p}{3}
+\contentsline {chapter}{\numberline {2}Realizacja algorytmu z~artyku\IeC {\l }u}{4}
+\contentsline {section}{\numberline {2.1}Rozdzielenie fonem\IeC {\'o}w}{4}
+\contentsline {section}{\numberline {2.2}Wyliczenie cech}{5}
+\contentsline {section}{\numberline {2.3}Rozpoznanie}{5}
+\contentsline {chapter}{\numberline {3}Wykorzystany algorytm}{6}
+\contentsline {section}{\numberline {3.1}Podzia\IeC {\l } na fonemy}{6}
+\contentsline {section}{\numberline {3.2}Ekstrakcja cech}{6}
+\contentsline {section}{\numberline {3.3}Rozpoznanie fonem\IeC {\'o}w}{7}
+\contentsline {section}{\numberline {3.4}Dopasowanie do wzorca}{7}
+\contentsline {chapter}{\numberline {4}Wyniki i wnioski}{8}
